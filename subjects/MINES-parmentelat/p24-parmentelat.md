@@ -46,12 +46,11 @@ paradigmes de programmation vers un monde où tout est vectorisé.
 
 ### première version
 
-un premier article de 2000 est disponible en ligne à l'adresse
-<http://arxiv.org/pdf/cs/0011047v1>  
-  dans cette façon de présenter les choses,
-on aurait envie d'utiliser un langage de bas niveau comme du C ou du Rust, car
-il s'agit d'implémenter une structure de données de cellules doublement
-chainées (i.e. horizontalement et verticalement).
+un premier article de 2000 [est disponible en ligne sur
+arxiv](http://arxiv.org/pdf/cs/0011047v1); dans cette façon de présenter les
+  choses (pages 1 à 8 essentiellement), on aurait envie d'utiliser un langage de
+bas niveau comme du C ou du Rust, car il s'agit d'implémenter une structure de
+données de cellules doublement chainées (i.e. horizontalement et verticalement).
 
 ✅ à propos de cette version de l'algorithme, vous pourriez lire le code de
 `exact_cover` qui est disponible sur github à l'adresse  
@@ -65,7 +64,8 @@ Programming", mais cette version utilise cette fois une structure de données en
 tableaux, bien plus propice à la vectorisation.
 
 La référence est "Volume 4B, section 7.2.2 "Backtrack Programming", et plus
-précisément 7.2.2.1 "Dancing Links" - voir [le pdf joint, pages xxx]
+précisément 7.2.2.1 "Dancing Links" - [voir le pdf joint, pages 1 à
+5](knuth-7.2.2.1-dancing-links.pdf)
 
 ✅ la librairie `xcover` git@github.com:johnrudge/xcover.git s'inspire de cette
 version de l'algorithme, et est écrite cette fois en Python/numpy (et numba,
