@@ -1,0 +1,8 @@
+[Unit]
+Description=Cyclically perform git pull and rerun sphinx
+
+[Timer]
+OnCalendar=*:0/1
+
+[Install]
+WantedBy=multi-user.target

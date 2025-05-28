@@ -1,0 +1,7 @@
+[Unit]
+Description=Cyclically perform git pull and rerun sphinx
+
+[Service]
+User=apache
+Type=oneshot
+ExecStart=/var/www/html/p23/tools/timer-script.sh

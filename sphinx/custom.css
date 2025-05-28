@@ -1,0 +1,29 @@
+/* div[role="navigation"] {
+    display: grid;
+    grid-template-columns: ;
+} */
+
+li.wy-breadcrumbs-aside {
+    display: none;
+}
+
+table.highlights tr>:first-child {
+    text-align: right;
+}
+
+/* prev/next buttons come first */
+
+div[role="navigation"][aria-label="Page navigation"] {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "arrows" "title";
+
+    &>:first-child {
+        grid-area: title;
+    }
+
+    &>:nth-child(2) {
+        grid-area: arrows;
+    }
+
+}
