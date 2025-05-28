@@ -34,6 +34,7 @@ one can access a specific year - useful during setup
 
 ### next year
 
+
 create a new repo like this:
 
 ```
@@ -46,3 +47,5 @@ git commit -m starter point from previous year
 # at this point replace all p23 with p24
 mkdir subjects
 ```
+
+also deal with the logo
