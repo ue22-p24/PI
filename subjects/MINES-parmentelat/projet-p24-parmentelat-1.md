@@ -1,4 +1,4 @@
-# Implémenter sa propre libraire `exact_cover`
+# Implémenter sa propre librairie `exact_cover`
 
 Vous avez aimé le sujet de Hackathon sur les pentaminos ? Ce sujet est pour vous !  
 Il s'agit d'écrire, et non plus de simplement utiliser, une librairie qui permet de résoudre le problème dit de l'*exact cover*.
