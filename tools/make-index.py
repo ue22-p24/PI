@@ -13,7 +13,7 @@ import re
 from pathlib import Path
 from string import Template
 
-PREFIX = "projet-p24-"
+PREFIX = "p24-"
 
 topgit = Path(__file__).parent.parent
 
