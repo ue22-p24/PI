@@ -29,6 +29,8 @@ subjects = []
 numbers = {}
 with open(topgit / "subjects/00-NUMBERS", 'r', encoding="UTF-8") as reader:
     for line in reader:
+        if line.startswith("#"):
+            continue
         number, filename = line.strip().split()
         if filename.startswith(PREFIX):
             numbers[filename] = int(number)
