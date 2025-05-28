@@ -1,9 +1,29 @@
 # Les projets d'informatique
 
 ```{admonition} à enlever
-:class: tip
+:class: error
 ***ce chapeau est dans `sphinx/index-template.md`***
 ```
+
+````{admonition} à enlever (2)
+:class: error
+pour ajouter un projet:
+- créer un dossier dans `subjects/`
+- avec comme nom `COMPANYNAME-personname`
+- ajouter dedans un fichier `p24-untruc.md`
+- mettre en première ligne un titre; pas vraiment besoin de numéro ou de guillemets
+- ajouter dans `subjects/00-NUMBERS` une ligne avec e.g.
+  ```text
+  8 p24-untruc.md
+  ```
+- `make index` va
+  - le cas échéant modifier la ligne de titre pour y mettre le bon numéro et les guillemets  
+    c'est idempotent (c'est pareil qu'on le lance une fois ou plusieurs)
+  - mettre à jour `index.md` à partir du template et des contenus
+- `make html` va recalculer le HTML dans `build/html/index.html`,  
+  qu'on peut visualiser dans un navigateur avant de pousser
+- là on peut committer le tout et pousser
+````
 
 Les projets informatique du second semestre sont **LA** réalisation importante des modules d'informatique de l'année.
 
@@ -38,6 +58,6 @@ Chacun d'entre-vous doit, **avant le 30 janvier minuit** (ou le **1 février min
 ```{toctree}
 :maxdepth: 1
 
-00 Implémenter sa propre libraire `exact_cover` <subjects/MINES-parmentelat/projet-p24-parmentelat-1.md>
-00 Construire une "Timeline" client <subjects/TOWERAI-gmira/projet-p24-gmira.md>
+01 Construire une "Timeline" client» <subjects/TOWERAI-gmira/p24-gmira.md>
+12 Implémenter sa propre librairie `exact_cover`» <subjects/MINES-parmentelat/p24-parmentelat.md>
 ```
