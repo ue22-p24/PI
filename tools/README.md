@@ -20,6 +20,7 @@ conda activate complains about the shell not being init'ed, but but but it was !
 ## update 2025: apache -> caddy
 
 see `/etc/caddy/Caddyfile` for the configuration
+no longer need the `apache` user
 
 ## from one year to another
 
