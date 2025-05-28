@@ -26,6 +26,15 @@ margin = max(len(p.stem) for p in md_files) - len(PREFIX)
 
 subjects = []
 
+numbers = {}
+with open(topgit / "subjects/00-NUMBERS", 'r', encoding="UTF-8") as reader:
+    for line in reader:
+        number, filename = line.strip().split()
+        if filename.startswith(PREFIX):
+            numbers[filename] = int(number)
+        else:
+            print(f"WARNING: {filename} does not start with {PREFIX}, skipping")
+
 with open(output_csv, 'w', encoding="UTF-8") as fout:
     print("company,person,stem,index,title", file=fout)
     for md_file in md_files:
@@ -33,43 +42,61 @@ with open(output_csv, 'w', encoding="UTF-8") as fout:
         # xx patchy part
         # tentatively find company and person based on UPPERCASE-lowercase
         directory = md_relpath.parent
-        match_company = re.match(r"^([A-Z-]+)-.*", directory.name)
-        company = match_company.group(1) if match_company else "???"
-        person = directory.name.replace(company+"-", "")
-        # match_person = re.match(r".*-([a-z0-9_-]+)$", dir.name)
-        # person = match_person.group(1) if match_person else "???"
-        # remove PREFIX from filename for conciseness
-        stem = md_relpath.stem.replace(PREFIX, "")
-        # print(f">{company:10}< >{person:10}< ", end="")
-        print(f"{stem:>{margin}} ", end="")
-        title = None
-        md_index = 999
-        with md_file.open() as fin:
-            for line in fin:
-                if not line.startswith("# "):
-                    continue
-                match = re.match(r"^# (\d+) (.*)", line)
-                try:
-                    md_index = int(match.group(1))
-                except (ValueError, AttributeError):
-                    md_index = 0
-                title = match.group(2) if match else line[2:]
-                break
-        if md_index == 999:
-            print(f"index not found <= {md_index} ", end="")
+        if not (match := re.match(r"^([A-Z-]+)-(.*)", directory.name)):
+            print(f"WARNING: {directory} does not match expected pattern, skipping")
+            continue
+        company = match.group(1)
+        person = match.group(2)
+
+        stem = md_relpath.stem
+        name = md_relpath.name
+        if name not in numbers:
+            print(f"WARNING: {stem} not found in subjects/00-NUMBERS, skipping")
+            continue
+        index = numbers[name]
+
+        # write a possibly modified version
+        md_modified = md_file.with_suffix(".tmp")
+        adopt_modified = False
+        title_found = False
+        title = "???"
+
+        with md_modified.open('w', encoding="UTF-8") as writer:
+            with md_file.open() as reader:
+                for line in reader:
+                    if title_found or not line.startswith("# "):
+                        writer.write(line)
+                        continue
+                    title_found = True
+                    if (match := re.match(r"^# (?P<index>\d+) (« )?(?P<title>.*)( »)?", line)):
+                        md_index = int(match.group("index"))
+                        title = match.group("title")
+                        sep1 = match.group(2)
+                        sep2 = match.group(3)
+                        if md_index != index or not sep1 or not sep2:
+                            adopt_modified = True
+                            writer.write(f"# {index:02d} « {title} »\n")
+                    elif (match := re.match(r"^# (« )?(?P<title>.*)( »)?", line)):
+                        title = match.group("title")
+                        adopt_modified = True
+                        writer.write(f"# {index:02d} « {title} »\n")
+                    else:
+                        print(f"WARNING: {md_file} cannot spot title from line: {line.strip()} - bailing out")
+                        exit(1)
+        if adopt_modified:
+            print(f"adopting modified title in {md_file}")
+            md_modified.rename(md_file)
         else:
-            print(f"index={md_index:03} ", end="")
-        if not title:
-            print("NO title", end="")
-        else:
-            print(f"title={title[:25]}...", end="")
+            md_modified.unlink()
+        print(f"index={md_index:03} ", end="")
+        print(f"title={title[:25]}...", end="")
         # remove space around guillemets in the TOC area
         # because it is rather narrow and we often see the titles
         # cut in the wrong places
         title = title.replace("« ", "«").replace(" »", "»")
         # record a tuple index, title
-        subjects.append((md_index,
-                         f"{md_index:02d} {title.strip()} <{md_relpath}>"))
+        subjects.append(
+            (md_index, f"{index:02d} {title.strip()} <{md_relpath}>"))
         print()
         # write csv
         print(company, person, stem, md_index, title, file=fout, sep=',')
