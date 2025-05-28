@@ -1,5 +1,10 @@
 # Les projets d'informatique
 
+```{admonition} à enlever
+:class: tip
+***ce chapeau est dans `sphinx/index-template.md`***
+```
+
 Les projets informatique du second semestre sont **LA** réalisation importante des modules d'informatique de l'année.
 
 Pour les sujets, nous avons sollicité des personnes issues d'entreprises, d'industries, de startups, de centres de recherche, d'établissements publics... qui vont prendre sur leur temps pour vous accompagner dans la réalisation d'un projet dans leur secteur d'activité et vous procurer ainsi une première expérience très formatrice. Nous vous demandons en retour de jouer le jeu en prenant au sérieux cette activité et en vous donnant tous les moyens pour mener à bien ces projets.
